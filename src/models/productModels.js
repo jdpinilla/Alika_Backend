@@ -6,7 +6,8 @@ const productsTemplate = mongoose.Schema({
         required: true
     },
     categories: {
-        type: Array,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true
     },
     priceCOP: {
@@ -20,7 +21,6 @@ const productsTemplate = mongoose.Schema({
     image: {
         type: String,
         required: true,
-        data: Buffer,
     },
     description: {
         type: String,
@@ -30,6 +30,13 @@ const productsTemplate = mongoose.Schema({
         type: Number,
         required: true,
     },
+})
+productsTemplate.set('toJSON', {
+    transform: (docuemnt, returnedObject) => {
+        returnedObject.id = returnedObject._id
+        delete returnedObject._id
+        delete returnedObject._v
+    }
 })
 
 module.exports = new mongoose.model('Product', productsTemplate)

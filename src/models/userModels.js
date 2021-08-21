@@ -22,6 +22,17 @@ const UserTemplate = new mongoose.Schema({
         default: 'user'
     }
 })
+
+UserTemplate.set('toJSON', {
+    transform: (docuemnt, returnedObject) => {
+        returnedObject.id = returnedObject._id
+        delete returnedObject._id
+        delete returnedObject.__v
+
+        delete returnedObject.password
+    }
+})
+
 UserTemplate.methods.encryptPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);
     const hash = bcrypt.hash(password, salt);

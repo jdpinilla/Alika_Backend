@@ -8,7 +8,7 @@ const User = require('../models/userModels')
 
 router.get('/', async (req, res, next) => {
     const users = await User.find()
-    res.send(users)
+    res.status(200).json(users)
 })
 router.post('/signin', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
@@ -38,7 +38,7 @@ router.post('/signup', async (req, res) => {
         errors.push({ text: 'Password do not match' })
     }
     if (errors.length > 0) {
-        res.render('users/signup', { errors, fullName, email, password, confirm_password })
+        res.status(400).render('users/signup', { errors, fullName, email, password, confirm_password })
     } else {
         const emailUser = await User.findOne({ email: email })
         if (emailUser) {

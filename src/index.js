@@ -1,19 +1,18 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const mongoose = require('mongoose')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
-const passportLocal = require('passport-local').Strategy;
 const cors = require('cors')
 const multer = require('multer')
 const path = require('path')
-const mercadopago = require('mercadopago')
+
 //Initializations
 const app = express()
+dotenv.config()
+
 require('./database')
 require('./config/passport')
-dotenv.config()
 //Settings
 app.set('port', process.env.PORT)
 
@@ -53,8 +52,9 @@ app.use(passport.session());
 app.use('/user', require('./routes/user'))
 app.use('/product', require('./routes/product'))
 app.use('/checkout', require('./routes/checkout'))
-async function main() {
-    await app.listen(app.get('port'));
+const server = app.listen(app.get('port'), () =>
     console.log('Server run on port', app.get('port'))
-}
-main()
+
+);
+
+module.exports = { app, server }
