@@ -13,6 +13,10 @@ const UserTemplate = new mongoose.Schema({
         type: String,
         required: true,
     },
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }],
     date: {
         type: Date,
         default: Date.now
@@ -20,11 +24,12 @@ const UserTemplate = new mongoose.Schema({
     role: {
         type: String,
         default: 'user'
-    }
+    },
+
 })
 
 UserTemplate.set('toJSON', {
-    transform: (docuemnt, returnedObject) => {
+    transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id
         delete returnedObject._id
         delete returnedObject.__v

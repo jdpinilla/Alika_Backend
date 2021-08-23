@@ -7,6 +7,10 @@ const ordersTemplate = mongoose.Schema({
     user: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        default: new Date()
     }
 })
 

@@ -63,7 +63,7 @@ router.post('/add', async (req, res, next) => {
 router.put('/edit/:id', async (req, res, next) => {
     try {
         const { id } = req.params;
-        const productUpdated = await Product.findByIdAndUpdate({ _id: id }, req.body)
+        const productUpdated = await Product.findByIdAndUpdate({ id }, req.body)
 
         res.status(200).json(productUpdated)
     }

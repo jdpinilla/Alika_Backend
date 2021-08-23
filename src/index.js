@@ -52,6 +52,7 @@ app.use(passport.session());
 app.use('/user', require('./routes/user'))
 app.use('/product', require('./routes/product'))
 app.use('/checkout', require('./routes/checkout'))
+app.use('/category', require('./routes/category'))
 const server = app.listen(app.get('port'), () =>
     console.log('Server run on port', app.get('port'))
 

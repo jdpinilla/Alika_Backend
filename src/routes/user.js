@@ -52,7 +52,7 @@ router.post('/signup', async (req, res) => {
     }
 })
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    res.send(req.user)
+    res.json(req.user)
 })
 
 router.get('/logout', (req, res) => {
