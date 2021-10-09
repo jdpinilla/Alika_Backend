@@ -9,6 +9,11 @@ const categorysSchema = mongoose.Schema({
         type: String,
         required: true,
 
-    }
+    },
+    imageExtension: {
+        type: String,
+        required: true,
+    },
 })
+
 module.exports = new mongoose.model('Category', categorysSchema)

@@ -10,16 +10,20 @@ mercadopago.configure({
 
 router.post('/', (req, res) => {
     const order = req.body.cart
-    console.log(order)
-    const items = order.map(item => {
+    const email = req.body.email
+    let finalPrice;
+    // console.log(order)
+    const items = [];
+    order.map(item => {
         const pedido = {
             title: item.name,
             unit_price: item.priceCOP,
             quantity: item.quantity
         }
-        return pedido
+        finalPrice += item.priceCOP;
+        items.push(pedido)
     })
-    const newOrder = new Order({ products: items })
+    const newOrder = new Order({ products: items, finalPrice, email })
     mercadopago.preferences.create({
         items: newOrder.products
     }).then((preference) => {

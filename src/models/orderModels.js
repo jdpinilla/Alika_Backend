@@ -11,6 +11,10 @@ const ordersTemplate = mongoose.Schema({
     date: {
         type: Date,
         default: new Date()
+    },
+    finalPrice: {
+        type: Number,
+        required: true
     }
 })
 

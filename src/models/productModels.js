@@ -6,8 +6,7 @@ const productsTemplate = mongoose.Schema({
         required: true
     },
     categories: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
+        type: Array,
         required: true
     },
     priceCOP: {
@@ -19,6 +18,10 @@ const productsTemplate = mongoose.Schema({
         required: true,
     },
     image: {
+        type: String,
+        required: true,
+    },
+    imageExtension: {
         type: String,
         required: true,
     },

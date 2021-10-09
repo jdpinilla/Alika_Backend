@@ -1,11 +1,10 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const session = require('express-session')
+const fileUpload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const cors = require('cors')
-const multer = require('multer')
-const path = require('path')
 
 //Initializations
 const app = express()
@@ -17,18 +16,12 @@ require('./config/passport')
 app.set('port', process.env.PORT)
 
 //Middlewares
+app.use(fileUpload())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'public/uploads'),
-    filename: (req, file, cb) => {
-        cb(null, new Date().getTime() + path.extname(file.originalname));
-    }
-})
-app.use(multer({ storage }).single('image'));
 
 app.use(cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     credentials: true
 }
 ))
@@ -53,6 +46,7 @@ app.use('/user', require('./routes/user'))
 app.use('/product', require('./routes/product'))
 app.use('/checkout', require('./routes/checkout'))
 app.use('/category', require('./routes/category'))
+app.use('/order', require('./routes/order'))
 const server = app.listen(app.get('port'), () =>
     console.log('Server run on port', app.get('port'))
 
